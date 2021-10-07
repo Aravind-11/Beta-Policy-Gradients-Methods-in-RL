@@ -3,12 +3,15 @@ Recently, reinforcement learning with deep neu- ral networks has achieved great 
 
 # Introduction
 Beta Policy for Continuous control in Reinforcement learning . Using a naive approach like Q learning wouldn’t work well for continuous action spaces since it mainly and only deals with small action spaces and discretised ones. If we need a robotic arm , that needs to be given infinite muscular commands to perform its tasks, Q learning is not the optimalsolution . 
+
 Gaussian policies that samples a range of actions as its policy is one of the optimal solutions.
 The drawback in gaussian policies is that they are not bounded , as in , there is no finite support. Having infinite support isn’t usually what we need to do in many of the tasks. Therefore, Beta policies that has alpha and beta as their support can solve this problem .
 
 # Model 
 We model our continuous control reinforcement learning as a Markov decision process (MDP). An MDP consists
 of a state space S, an action space A, an initial state s0, and the corresponding state distribution p0 (s0 ), a stationary transition distribution describing the environment dynam- ics p(st+1 |st , at ) that satisfies the Markov property, and a reward function r(s, a) : S × A → R for every state s and action a. An agent selects actions to interact with the environment based on a policy, which can be either deter- ministic or stochastic. In this paper, we focus on the lat- ter. A stochastic policy can be described as a probability distribution of taking an action a given a state s parameterized by a n-dimensional vector θ ∈ Rn, denoted as πθ(a| s):S→A.
+
 At each timestep t, a policy distribution πθ (a|st ) is constructed from the distribution parameters (e.g., from μθ (s), σθ (s) if it’s a Normal distribution). An action at is then sampled from this distribution to interact with the environment, i.e. at ∼ πθ (·|st ). Starting from an ini- tial state, an agent follows a policy to interact with the MDP to generate a trajectory of states, actions, and re- wards {s0,a0,r0,...,sT ,aT,rT }. The goal of an agent is to maximize the return from a state, defined as the to- tal discounted reward rtγ = ∞i=0 γir(st+i, at+i), where γ ∈ (0, 1] is the discount factor describing how much we favor current reward over those in the future.
+
 To describe how good it is being in state s under the pol- icy π, a state-value function V π (s) = Eπ [r0γ |s0 = s] is defined as the expected return starting from state s, fol- lowing the policy π, interacting with environment dynam- ics, and repeating until the maximum number of episodes is reached. An action-value function Qπ (s, a), which de- scribes the value of taking a certain action, is defined sim- ilarly, except it is the expected return starting from state s after taking an action a under policy π.
 
