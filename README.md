@@ -1,1 +1,1 @@
-## Beta-Policy-Gradients-Methods-in-RL
+### Beta-Policy-Gradients-Methods-in-RL
